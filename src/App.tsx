@@ -1,37 +1,33 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/suiza-meta.png';
+import { ConnectButton, useWallet } from '@suiet/wallet-kit';
 import './App.css';
+import viteLogo from '/suiza-meta.png';
 
 function App() {
-    const [count, setCount] = useState(0);
-
+    const wallet = useWallet();
     return (
         <>
             <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img
-                        src={reactLogo}
-                        className="logo react"
-                        alt="React logo"
-                    />
-                </a>
+                <img src={viteLogo} className="logo" alt="Vite logo" />
             </div>
             <h1>Suiza</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
+            <ConnectButton
+                style={
+                    wallet.account
+                        ? {
+                              color: 'white',
+                              width: '100%',
+                          }
+                        : {
+                              backgroundColor: 'transparent',
+                              width: '100%',
+                          }
+                }
+                children={
+                    <button className="w-full border-zinc-800  bg-transparent hover:bg-zinc-800 hover:text-white text-zinc-300">
+                        Connect wallet
+                    </button>
+                }
+            />
         </>
     );
 }
