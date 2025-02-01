@@ -1,11 +1,13 @@
 import { ConnectButton, useWallet } from '@suiet/wallet-kit';
-import './App.css';
+import '../styles/App.css';
 import viteLogo from '/suiza-meta.png';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { getFullnodeUrl, SuiClient } from '@mysten/sui/client';
-import { SUI_DEVNET_FAUCET, toastStyles } from './config';
+import { SUI_CONTRACT, SUI_DEVNET_FAUCET, toastStyles } from '../config';
+import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { Transaction } from '@mysten/sui/transactions';
 const rpcUrl = getFullnodeUrl('devnet');
 const client = new SuiClient({ url: rpcUrl });
 function App() {
@@ -35,6 +37,22 @@ function App() {
             return null;
         },
     });
+    const handleOnboardingOnchain = async () => {
+        const contractModule = 'user_onboarding';
+        const contractMethod = 'onboard_user';
+        const tx = new Transaction();
+        tx.setGasBudget(100000000);
+        const [dataObj] = tx.moveCall({
+            target: `${SUI_CONTRACT}::${contractModule}::${contractMethod}`,
+            arguments: [tx.pure.address(wallet.account?.address as string)],
+        });
+        tx.transferObjects([dataObj], wallet?.account?.address as string);
+        const result = await wallet.signAndExecuteTransaction({
+            transaction: tx,
+        });
+        const res = await client.waitForTransaction({ digest: result.digest });
+        console.log(res);
+    };
     return (
         <>
             <div>
@@ -59,6 +77,8 @@ function App() {
                     </button>
                 }
             />
+            <div onClick={handleOnboardingOnchain}>Onboarding onchain</div>
+            <Link to={'/profile'}>Profile</Link>
         </>
     );
 }
