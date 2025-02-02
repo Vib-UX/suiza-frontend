@@ -37,20 +37,23 @@ function App() {
             return null;
         },
     });
+
     const handleOnboardingOnchain = async () => {
         const contractModule = 'user_onboarding';
         const contractMethod = 'onboard_user';
         const tx = new Transaction();
         tx.setGasBudget(100000000);
-        const [dataObj] = tx.moveCall({
+        tx.moveCall({
             target: `${SUI_CONTRACT}::${contractModule}::${contractMethod}`,
-            arguments: [tx.pure.address(wallet.account?.address as string)],
+            arguments: [tx.pure.string('30,male,180,75')],
         });
-        tx.transferObjects([dataObj], wallet?.account?.address as string);
+
         const result = await wallet.signAndExecuteTransaction({
             transaction: tx,
         });
-        const res = await client.waitForTransaction({ digest: result.digest });
+        const res = await client.waitForTransaction({
+            digest: result.digest,
+        });
         console.log(res);
     };
     return (
