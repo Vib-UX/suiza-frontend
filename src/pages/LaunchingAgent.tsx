@@ -5,11 +5,11 @@ import ConnectSocials from '../components/connectSocials';
 
 import Navbar from '../components/navbar';
 import VerticalLinearStepper from '../components/ui/stepper';
-// import useGlobalStorage from '../store';
+import useGlobalStorage from '../store';
 
 const LaunchAgent = () => {
-    // const { activeStep } = useGlobalStorage();
-    const activeStep = 1;
+    const { activeStep } = useGlobalStorage();
+
     return (
         <div className="relative bg-[#0a0f1b]       text-white
 
