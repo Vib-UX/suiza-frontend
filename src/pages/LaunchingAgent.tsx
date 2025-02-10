@@ -7,7 +7,7 @@ import Navbar from '../components/navbar';
 import VerticalLinearStepper from '../components/ui/stepper';
 import useGlobalStorage from '../store';
 import Launcher from '../components/launcher';
-import ConnectWallet from '../components/connectWallet';
+import WalletConnect from '../components/walletConnect';
 
 const LaunchAgent = () => {
 
@@ -40,7 +40,7 @@ font-chakra min-h-screen flex flex-col items-center px-4 md:px-8">
                 ) : activeStep === 1 ? (
                     <ConnectGears />
                 ) : activeStep === 2 ? (
-                    <ConnectWallet />
+                    <WalletConnect />
                 ) : (
                     <Launcher />
                 )}

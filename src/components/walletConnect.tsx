@@ -8,7 +8,7 @@ const rpcUrl = getFullnodeUrl('devnet');
 const client = new SuiClient({ url: rpcUrl });
 import axios from 'axios';
 
-const ConnectWallet = () => {
+const WalletConnect = () => {
     const wallet = useWallet();
     const { setActiveStep } = useGlobalStorage();
     useQuery({
@@ -68,4 +68,4 @@ const ConnectWallet = () => {
     );
 };
 
-export default ConnectWallet;
+export default WalletConnect;
