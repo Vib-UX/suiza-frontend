@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { SUI_DEVNET_FAUCET, toastStyles } from '../config';
 import useGlobalStorage from '../store';
 const rpcUrl = getFullnodeUrl('devnet');
-const client = new SuiClient({ url: rpcUrl });
+export const client = new SuiClient({ url: rpcUrl });
 import axios from 'axios';
 
 const WalletConnect = () => {
@@ -38,7 +38,7 @@ const WalletConnect = () => {
         },
     });
     return (
-        <div className="border border-[#79DFED] p-6 rounded-xl    bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525] h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
+        <div className="border border-[#79DFED] p-6 rounded-xl    bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525] h-full w-full md:size-[400px] mx-4  text-center md:text-left">
             <div className="bg-[radial-gradient(circle,_#FFFFFF_0%,_#FF5800_100%)] bg-clip-text text-transparent uppercase text-lg md:text-xl">
                 connect wallet
             </div>

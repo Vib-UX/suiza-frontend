@@ -7,7 +7,10 @@ import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { toastStyles } from '../config';
+import WalletConnect from './walletConnect';
+import { useWallet } from '@suiet/wallet-kit';
 const ConnectSocials = () => {
+    const wallet = useWallet();
     const { setActiveStep, userInfo, setUserInfo } = useGlobalStorage();
     const [triggerEffect, setTriggerEffect] = React.useState(false);
     const [searchParams] = useSearchParams();
@@ -52,7 +55,8 @@ const ConnectSocials = () => {
     React.useEffect(() => {
         if (
             localStorage.getItem('googleAuth') &&
-            localStorage.getItem('twitter_username')
+            localStorage.getItem('twitter_username') &&
+            wallet.address
         ) {
             setActiveStep(1);
         }
@@ -126,6 +130,7 @@ const ConnectSocials = () => {
                     )}
                 </div>
             </div>
+            <WalletConnect />
         </>
     );
 };

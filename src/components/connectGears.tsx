@@ -1,18 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { useQuery } from '@tanstack/react-query';
 // import { useEffect, } from 'react';
 
 // import { fetchUserData, useFitbitAuth } from '../hooks/useFitbitAuth';
-import { generateCodeChallenge, generateCodeVerifier } from '../lib/helper';
+import { generateCodeChallenge, generateCodeVerifier, generateCommitment } from '../lib/helper';
 // import useGlobalStorage from '../store';
 import toast from 'react-hot-toast';
+import { Transaction } from '@mysten/sui/transactions'
 import { toastStyles } from '../config';
 import { useEffect, useState } from 'react';
 import { Vr, Watch } from '../../public';
 import { fetchUserData, useFitbitAuth } from '../hooks/useFitbitAuth';
 import useGlobalStorage from '../store';
 import { useQuery } from '@tanstack/react-query';
+import { useWallet } from '@suiet/wallet-kit';
+import { client } from './walletConnect';
 
 const ConnectGears = () => {
+    const wallet = useWallet();
     useFitbitAuth();
     const sessionCode = sessionStorage.getItem('fitbit_token');
     const [bluetoothPaired, setBluetoothPaired] = useState(false);
@@ -22,6 +27,62 @@ const ConnectGears = () => {
         queryFn: () => fetchUserData(sessionCode!),
         enabled: !!sessionCode,
     });
+
+
+    const sendCall = async (resp: string) => {
+
+        try {
+            const contractModule = 'health';
+            const contractMethod = 'create_health_profile';
+            const tx = new Transaction();
+            tx.setGasBudget(100000000);
+            tx.moveCall({
+                target: `0x3b9ba93b293870b831443b6435712f28a2bccf75cb37a6e316b69f5e48dce531::${contractModule}::${contractMethod}`,
+                arguments: [
+                    tx.pure.string(resp),
+                    tx.pure.u8(8),
+                    tx.object('0x6'),
+                ],
+            });
+            const result = await wallet.signAndExecuteTransaction({
+                transaction: tx,
+            });
+            const res = await client.waitForTransaction({
+                digest: result.digest,
+            });
+
+            return res;
+        } catch (err) {
+            toast.error("Error signing transaction", toastStyles)
+        }
+    };
+    const onChainPush = async ({
+        height,
+        weight,
+        age,
+    }: {
+        height: number;
+        weight: number;
+        age: number;
+    }) => {
+        const resp = await generateCommitment({
+            blood_pressure: 120,
+            heart_rate: 75,
+            temperature: 37,
+            oxygen: 98,
+            respiratory_rate: 16,
+            height: height,
+            weight: weight,
+            age: age,
+        });
+        console.log(resp);
+        const res = await sendCall(resp);
+        if (res) {
+            toast.success("Data stored on chain successfully", toastStyles)
+            setActiveStep(2)
+        }
+    };
+
     useEffect(() => {
         if (data) {
             setUserInfo({
@@ -33,7 +94,11 @@ const ConnectGears = () => {
                 height: data.height,
                 gender: data.gender,
             });
-            setActiveStep(2);
+            onChainPush({
+                height: data.height,
+                weight: data.weight,
+                age: data.age,
+            });
         }
     }, [data]);
     const handleGetFitRedirection = async () => {
@@ -106,14 +171,7 @@ const ConnectGears = () => {
                     className="mx-auto mt-10"
                 />
             </div>
-            <div
-                className="mt-auto cursor-pointer hover:underline"
-                onClick={() => {
-                    setActiveStep(2);
-                }}
-            >
-                Skip
-            </div>
+
         </>
     );
 };

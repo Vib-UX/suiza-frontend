@@ -1,5 +1,6 @@
 import toast from 'react-hot-toast';
 import { toastStyles } from '../config';
+import { buildPoseidon } from "circomlibjs"
 
 export const generateCodeVerifier = (): string => {
     const array = new Uint8Array(64);
@@ -46,7 +47,7 @@ export const scheduleEvent = async ({
         end: {
             dateTime: new Date(
                 new Date(eventDetails.startDateTime).getTime() +
-                    duration * 60000
+                duration * 60000
             ).toISOString(),
             timeZone: 'UTC',
         },
@@ -214,5 +215,30 @@ export const voiceSupport = (messageContent: string) => {
         speechSynthesis.onvoiceschanged = speak; // Wait for voices to load
     } else {
         speak(); // If voices are already available, speak immediately
+    }
+};
+
+export const generateCommitment = async (data: any) => {
+    const poseidon = await buildPoseidon();
+    try {
+        const values = [
+            data.blood_pressure,
+            data.heart_rate,
+            data.temperature,
+            data.oxygen,
+            data.respiratory_rate,
+            data.height,
+            data.weight,
+            data.age,
+        ].map((v) => {
+            return poseidon.F.e(Math.floor(Math.abs(v * 100)));
+        });
+        const hash = poseidon(values);
+        const commitment = poseidon.F.toString(hash);
+
+        toast.success('Generated commitment', toastStyles);
+        return commitment;
+    } catch (error) {
+        toast.error('Commitment generation failed', toastStyles);
     }
 };
