@@ -213,6 +213,16 @@ const YourAgent = () => {
                                     >
                                         Here is your booking link
                                     </a>
+                                    <a
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="underline"
+                                        href={
+                                            'https://suiscan.xyz/devnet/tx/Cqab8BDjab9f8CGw1CfU37Re5Qxz7W72QyKAEaz7DADL'
+                                        }
+                                    >
+                                        Payment link
+                                    </a>
                                 </>
                             ),
                             type: 'assistant',

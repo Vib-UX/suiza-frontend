@@ -3,6 +3,7 @@ import { featureCardImage1, featureCardImage2, featureCardImage3, homePageCoverI
 import { Link } from "react-router-dom";
 import Navbar from '../components/navbar';
 export default function Home() {
+
     const images = [homePageImage1, homePageImage2, homePageImage3];
     const [currentImage, setCurrentImage] = useState(0);
     // const wallet = useWallet();
