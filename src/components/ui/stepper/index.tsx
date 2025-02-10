@@ -14,6 +14,9 @@ const steps = [
         label: 'Connect Gear',
     },
     {
+        label: 'Connect Wallet',
+    },
+    {
         label: 'Launch',
     },
 ];
