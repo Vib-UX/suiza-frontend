@@ -61,7 +61,7 @@ export const fetchStats = async (token: string) => {
 };
 
 export function useFitbitAuth() {
-    let [searchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const exchangeToken = async (code: string) => {
         try {

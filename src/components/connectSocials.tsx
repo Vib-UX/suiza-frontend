@@ -1,59 +1,62 @@
-// import { useGoogleLogin } from '@react-oauth/google';
-// import React from 'react';
-// import toast from 'react-hot-toast';
-// import { useNavigate, useSearchParams } from 'react-router';
-import { GoogleIcon, Xicon } from "../../public/index"
-// import { toastStyles } from '../config';
-// import useGlobalStorage from '../store';
-const ConnectSocials = () => {
-    // const { setActiveStep, userInfo, setUserInfo } = useGlobalStorage();
-    // const [triggerEffect, setTriggerEffect] = React.useState(false);
-    // const [searchParams] = useSearchParams();
-    // const navigate = useNavigate();
-    // const login = useGoogleLogin({
-    //     scope: 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/contacts.readonly',
-    //     onSuccess: async (tokenResponse) => {
-    //         const url =
-    //             'https://www.googleapis.com/oauth2/v1/userinfo?alt=json';
-    //         const res = await fetch(url, {
-    //             headers: {
-    //                 Authorization: `Bearer ${tokenResponse.access_token}`,
-    //             },
-    //         });
-    //         const data = await res.json();
-    //         if (data) {
-    //             localStorage.setItem('googleAuth', tokenResponse.access_token);
-    //             setUserInfo({
-    //                 ...userInfo,
-    //                 name: data.name,
-    //                 picture: data.picture,
-    //             });
-    //             localStorage.setItem('mail', data.email);
-    //             toast.dismiss();
-    //             toast.success('Google connected successfully', toastStyles);
-    //             setTriggerEffect(true);
-    //         }
-    //     },
-    // });
-    // React.useEffect(() => {
-    //     const queryCode = searchParams.get('twitter_username');
-    //     if (queryCode) {
-    //         localStorage.setItem('twitter_username', queryCode);
-    //         toast.dismiss();
-    //         toast.success('Twitter connected successfully', toastStyles);
-    //         setTriggerEffect(true);
-    //     }
+import { useGoogleLogin } from '@react-oauth/google';
 
-    //     navigate(window.location.pathname, { replace: true });
-    // }, [searchParams]);
-    // React.useEffect(() => {
-    //     if (
-    //         localStorage.getItem('googleAuth') &&
-    //         localStorage.getItem('twitter_username')
-    //     ) {
-    //         setActiveStep(1);
-    //     }
-    // }, [triggerEffect]);
+import { GoogleIcon, Xicon } from "../../public/index"
+
+import useGlobalStorage from '../store';
+import React from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { toastStyles } from '../config';
+const ConnectSocials = () => {
+    const { setActiveStep, userInfo, setUserInfo } = useGlobalStorage();
+    const [triggerEffect, setTriggerEffect] = React.useState(false);
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const login = useGoogleLogin({
+        scope: 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/contacts.readonly',
+        onSuccess: async (tokenResponse) => {
+            const url =
+                'https://www.googleapis.com/oauth2/v1/userinfo?alt=json';
+            const res = await fetch(url, {
+                headers: {
+                    Authorization: `Bearer ${tokenResponse.access_token}`,
+                },
+            });
+            const data = await res.json();
+            if (data) {
+                console.log(data);
+                localStorage.setItem('googleAuth', tokenResponse.access_token);
+                setUserInfo({
+                    ...userInfo,
+                    name: data.name,
+                    picture: data.picture,
+                });
+                localStorage.setItem('mail', data.email);
+                toast.dismiss();
+                toast.success('Google connected successfully', toastStyles);
+                setTriggerEffect(true);
+            }
+        },
+    });
+    React.useEffect(() => {
+        const queryCode = searchParams.get('twitter_username');
+        if (queryCode) {
+            localStorage.setItem('twitter_username', queryCode);
+            toast.dismiss();
+            toast.success('Twitter connected successfully', toastStyles);
+            setTriggerEffect(true);
+        }
+
+        navigate(window.location.pathname, { replace: true });
+    }, [searchParams]);
+    React.useEffect(() => {
+        if (
+            localStorage.getItem('googleAuth') &&
+            localStorage.getItem('twitter_username')
+        ) {
+            setActiveStep(1);
+        }
+    }, [triggerEffect]);
     return (
         <>
             <div className="border overflow-hidden border-[#79DFED] rounded-xl h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
@@ -80,7 +83,7 @@ const ConnectSocials = () => {
                             localStorage.getItem('googleAuth') ? true : false
                         }
                         className="border border-[#FF5800] p-2 rounded-lg w-full md:w-auto cursor-pointer"
-                    // onClick={() => login()}
+                        onClick={() => login()}
                     >
                         {localStorage.getItem('googleAuth')
                             ? 'Connected'
@@ -114,7 +117,7 @@ const ConnectSocials = () => {
                     ) : (
                         <a
                             href={
-                                'https://x-auth-production.up.railway.app/auth/twitter'
+                                'https://suiza-x-oauth-production.up.railway.app/auth/twitter'
                             }
                             className="border border-[#FF5800] p-2 rounded-lg w-full md:w-auto cursor-pointer"
                         >

@@ -5,7 +5,60 @@ import Navbar from '../components/navbar';
 export default function Home() {
     const images = [homePageImage1, homePageImage2, homePageImage3];
     const [currentImage, setCurrentImage] = useState(0);
+    // const wallet = useWallet();
+    // useQuery({
+    //     enabled: !!wallet.account,
+    //     queryKey: ['faucet', wallet.account ? wallet.account.address : ''],
+    //     queryFn: async () => {
+    //         if (wallet.account?.address) {
+    //             const coinBalanceData = await client.getBalance({
+    //                 owner: wallet.account?.address,
+    //             });
+    //             if (Number(coinBalanceData.totalBalance) / 1e9 === 0) {
+    //                 toast.loading(
+    //                     'Your Sui token are on the way, please wait a moment...',
+    //                     toastStyles
+    //                 );
+    //                 await axios.post(SUI_DEVNET_FAUCET, {
+    //                     FixedAmountRequest: {
+    //                         recipient: wallet.account.address,
+    //                     },
+    //                 });
+    //                 toast.success('Sui token sent successfully!', toastStyles);
+    //             }
+    //             return coinBalanceData;
+    //         }
+    //         return null;
+    //     },
+    // });
 
+    // const handleLaunchAgent = async () => {
+    //     try {
+    //         const contractModule = 'move_to_earn';
+    //         const contractMethod = 'create_profile';
+    //         const tx = new Transaction();
+    //         tx.setGasBudget(100000000);
+    //         tx.moveCall({
+    //             target: `${SUI_CONTRACT}::${contractModule}::${contractMethod}`,
+    //             arguments: [
+    //                 tx.object(
+    //                     '0x0000000000000000000000000000000000000000000000000000000000000006'
+    //                 ),
+    //             ],
+    //         });
+
+    //         const result = await wallet.signAndExecuteTransaction({
+    //             transaction: tx,
+    //         });
+    //         const res = await client.waitForTransaction({
+    //             digest: result.digest,
+    //         });
+    //         console.log(res);
+    //     } catch (err) {
+    //         toast.error('Something went wrong', toastStyles);
+    //         console.log(err);
+    //     }
+    // };
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % images.length);
@@ -28,7 +81,7 @@ font-chakra">
                 <div className="absolute space-y-3  z-50  left-10 max-w-2xl">
                     <h2 className="text-3xl md:text-5xl font-bold">SuiZa: The Only Fitness Agent You'll Ever Need</h2>
                     <p className="mt-4   opacity-[80%] ">Unlock the future of fitness with AI-powered coaching, wearable integration, and holographic training. Train smarter, track progress effortlessly, and push your limits with SuiZa.</p>
-                    <Link to={'/LaunchAgent'} className=" bg-blue-500  px-6  py-3 rounded-lg hover:bg-blue-700">Launch your Fitness Companion</Link>
+                    <Link to={'/launch-your-agent'} className=" bg-blue-500  px-6  py-3 rounded-lg hover:bg-blue-700">Launch your Fitness Companion</Link>
                 </div>
             </header>
 
@@ -81,3 +134,24 @@ function FeatureCard({ image, title, description }: { image: string, title: stri
         </div>
     );
 }
+
+
+
+{/* <ConnectButton
+    style={
+        wallet.account
+            ? {
+                color: 'white',
+                width: '100%',
+            }
+            : {
+                backgroundColor: 'transparent',
+                width: '100%',
+            }
+    }
+    children={
+        <button className="w-full border-zinc-800  bg-transparent hover:bg-zinc-800 hover:text-white text-zinc-300">
+            Connect wallet
+        </button>
+    }
+/> */}
