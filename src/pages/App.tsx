@@ -1,6 +1,5 @@
 import { ConnectButton, useWallet } from '@suiet/wallet-kit';
-import '../styles/App.css';
-import viteLogo from '/suiza-meta.png';
+import { logo } from '../../public/index';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { getFullnodeUrl, SuiClient } from '@mysten/sui/client';
@@ -59,20 +58,20 @@ function App() {
     return (
         <>
             <div>
-                <img src={viteLogo} className="logo" alt="Vite logo" />
+                <img src={logo} className="logo" alt="Vite logo" />
             </div>
             <h1>Suiza</h1>
             <ConnectButton
                 style={
                     wallet.account
                         ? {
-                              color: 'white',
-                              width: '100%',
-                          }
+                            color: 'white',
+                            width: '100%',
+                        }
                         : {
-                              backgroundColor: 'transparent',
-                              width: '100%',
-                          }
+                            backgroundColor: 'transparent',
+                            width: '100%',
+                        }
                 }
                 children={
                     <button className="w-full border-zinc-800  bg-transparent hover:bg-zinc-800 hover:text-white text-zinc-300">
