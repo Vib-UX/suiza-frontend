@@ -23,6 +23,7 @@ const steps = [
 
 export default function VerticalLinearStepper() {
     const { activeStep } = useGlobalStorage();
+
     return (
         <Box>
             <Stepper activeStep={activeStep} orientation="vertical">
