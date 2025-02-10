@@ -4,7 +4,6 @@ import './styles/index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './pages/App.tsx';
 import Provider from './Provider.tsx';
-import Profile from './pages/profile.tsx';
 import LaunchAgent from './pages/LaunchingAgent.tsx';
 import YourAgent from './pages/YourAgent.tsx';
 const router = createBrowserRouter([
@@ -12,10 +11,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <App />,
     },
-    {
-        path: '/profile',
-        element: <Profile />,
-    },
+
     {
         path: '/LaunchAgent',
         element: <LaunchAgent />,

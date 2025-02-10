@@ -56,7 +56,7 @@ const ConnectGears = () => {
 
     return (
         <>
-            <div className="border border-[#79DFED] p-6 rounded-xl h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
+            <div className="border border-[#79DFED] p-6 rounded-xl    bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525] h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
                 <div className="bg-[radial-gradient(circle,_#FFFFFF_0%,_#FF5800_100%)] bg-clip-text text-transparent uppercase text-lg md:text-xl">
                     ar gear
                 </div>
@@ -71,6 +71,7 @@ const ConnectGears = () => {
                 >
                     {bluetoothPaired ? 'Connected' : 'Connect Now'}
                 </button>
+
                 <img
                     src={Vr}
                     alt="VR Gear"
@@ -78,9 +79,10 @@ const ConnectGears = () => {
                     width={150}
                     className="mx-auto mt-10 md:mt-16"
                 />
+
             </div>
             {/* Smartwatch */}
-            <div className="border border-[#79DFED] p-6 rounded-xl h-full w-full md:size-[400px] mx-4 text-center md:text-left">
+            <div className="border border-[#79DFED] p-6 rounded-xl    bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525] h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
                 <div className="bg-[radial-gradient(circle,_#FFFFFF_0%,_#FF5800_100%)] bg-clip-text text-transparent uppercase text-lg md:text-xl">
                     smartwatch
                 </div>
@@ -98,7 +100,7 @@ const ConnectGears = () => {
                     alt="Smartwatch"
                     height={150}
                     width={150}
-                    className="mx-auto mt-10 md:mt-16"
+                    className="mx-auto mt-10"
                 />
             </div>
             <div

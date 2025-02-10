@@ -56,14 +56,17 @@ const ConnectSocials = () => {
     // }, [triggerEffect]);
     return (
         <>
-            <div className="border border-[#79DFED] rounded-xl h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
-                <img
-                    src={GoogleIcon}
-                    alt="google"
-                    height={156}
-                    width={156}
-                    className="mx-auto py-5"
-                />
+            <div className="border overflow-hidden border-[#79DFED] rounded-xl h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
+                <div className="relative  flex justify-center items-center rounded-2xl shadow-xl
+                  bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525]">
+                    <img
+                        src={GoogleIcon}
+                        alt="google"
+                        height={170}
+                        width={170}
+                        className="mx-auto py-5"
+                    />
+                </div>
                 <div className="bg-[#1A1D25]  p-6 rounded-b-xl">
                     <div className="bg-[radial-gradient(circle,_#FFFFFF_0%,_#FF5800_100%)] bg-clip-text text-transparent uppercase text-lg md:text-xl">
                         google
@@ -84,15 +87,18 @@ const ConnectSocials = () => {
                             : 'Connect Now'}
                     </button>
                 </div>
-            </div>
-            <div className="border border-[#79DFED] rounded-xl h-full w-full md:size-[400px] mx-4 text-center md:text-left">
-                <img
-                    src={Xicon}
-                    alt="twitter"
-                    height={190}
-                    width={190}
-                    className="mx-auto py-5"
-                />
+            </div >
+            <div className="border  overflow-hidden  border-[#79DFED] rounded-xl h-full w-full md:size-[400px] mx-4 text-center md:text-left">
+                <div className="relative  flex justify-center items-center rounded-2xl shadow-xl
+                  bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525]">
+                    <img
+                        src={Xicon}
+                        alt="twitter"
+                        height={190}
+                        width={190}
+                        className="mx-auto py-5 "
+                    />
+                </div>
                 <div className="bg-[#1A1D25]  p-6 rounded-b-xl">
                     <div className="bg-[radial-gradient(circle,_#FFFFFF_0%,_#FF5800_100%)] bg-clip-text text-transparent uppercase text-lg md:text-xl">
                         X (Twitter)
