@@ -15,7 +15,7 @@ const LaunchAgent = () => {
 
 font-chakra min-h-screen flex flex-col items-center px-4 md:px-8">
             <Navbar />
-            <div className="mt-44">
+            <div className="mt-44 w-full">
                 <div className="text-4xl  font-bold text-center">
                     Launch your Agent
                 </div>
