@@ -6,6 +6,8 @@ import App from './pages/App.tsx';
 import Provider from './Provider.tsx';
 import LaunchAgent from './pages/LaunchingAgent.tsx';
 import YourAgent from './pages/YourAgent.tsx';
+import MoveToEarn from './pages/moveToEarn.tsx';
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
     {
         path: '/YourAgent',
         element: <YourAgent />,
+    },
+    {
+        path: '/move-To-Earn',
+        element: <MoveToEarn />,
     },
 ]);
 createRoot(document.getElementById('root')!).render(

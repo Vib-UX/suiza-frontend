@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import toast from 'react-hot-toast';
 import { toastStyles } from '../config';
 import { buildPoseidon } from "circomlibjs"
@@ -118,7 +120,7 @@ export const extractEventDetails = (userInput: string) => {
     }
 
     if (timeMatch) {
-        let timeString = timeMatch[1];
+        const timeString = timeMatch[1];
         const isPM = timeString.includes('PM');
         let [hours, minutes] = timeString
             .replace(/(AM|PM)/i, '')
