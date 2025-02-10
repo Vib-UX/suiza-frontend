@@ -95,7 +95,7 @@ const YourAgent = () => {
                 const eventDetails = extractEventDetails(value);
                 const res = await scheduleEvent({
                     eventDetails,
-                    attendeesEmail: localStorage.getItem('mail') || '',
+                    attendeesEmail: localStorage.getItem('mail') || "gymfreak@gmail.com",
                 });
                 const messageContent =
                     'Meeting scheduled successfully!, here is your calendar link';
@@ -261,11 +261,11 @@ const YourAgent = () => {
                     const eventDetails = {
                         summary: `Appointment with Dr. ${doc}`,
                         startDateTime: `${formattedDate}T00:00:00`,
-                        duration: 30,
+                        duration: 60,
                     };
                     const res = await scheduleEvent({
                         eventDetails,
-                        attendeesEmail: doc,
+                        attendeesEmail: doc || "gymfreak@gmail.com",
                     });
                     setMessages((prev) => [
                         ...prev,

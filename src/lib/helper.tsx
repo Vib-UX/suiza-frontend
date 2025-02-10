@@ -39,7 +39,7 @@ export const scheduleEvent = async ({
     attendeesEmail?: string;
 }) => {
     const token = localStorage.getItem('googleAuth');
-    const duration = eventDetails.duration || 30;
+    const duration = eventDetails.duration || 60;
     const event = {
         summary: eventDetails.summary,
         start: {
