@@ -23,7 +23,7 @@ font-chakra min-h-screen flex flex-col items-center px-4 md:px-8">
                 <div className="text-center text-sm md:text-2xl font-semibold opacity-90 pt-5 md:pt-20 text-white">
                     Connect Your Socials – Stay Synced with Suiza
                 </div>
-                <p className="text-lg max-w-[90] opacity-50 leading-loose py-5 text-center">
+                <p className="text-lg  opacity-50 leading-loose py-5 text-center">
                     Enhance Suiza’s AI capabilities by linking your favorite
                     platforms for smarter recommendations,<br /> seamless scheduling,
                     and a truly personalized experience.
