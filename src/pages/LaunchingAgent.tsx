@@ -6,9 +6,12 @@ import ConnectSocials from '../components/connectSocials';
 import Navbar from '../components/navbar';
 import VerticalLinearStepper from '../components/ui/stepper';
 import useGlobalStorage from '../store';
+import { ConnectButton, useWallet } from '@suiet/wallet-kit';
+import Launcher from '../components/launcher';
 
 const LaunchAgent = () => {
-    const { activeStep } = useGlobalStorage();
+    const wallet = useWallet();
+    const { activeStep, setActiveStep } = useGlobalStorage();
 
     return (
         <div className="relative bg-[#0a0f1b]       text-white
@@ -36,7 +39,40 @@ font-chakra min-h-screen flex flex-col items-center px-4 md:px-8">
                     <ConnectSocials />
                 ) : activeStep === 1 ? (
                     <ConnectGears />
-                ) : null}
+                ) : activeStep === 2 ? (
+                    <div className="border border-[#79DFED] p-6 rounded-xl    bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525] h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
+                        <div className="bg-[radial-gradient(circle,_#FFFFFF_0%,_#FF5800_100%)] bg-clip-text text-transparent uppercase text-lg md:text-xl">
+                            connect wallet
+                        </div>
+                        <p className="text-lg py-3 md:py-5">
+                            Securely store your fitness data and transactions on
+                            the blockchain.
+                        </p>
+                        <ConnectButton
+                            style={
+                                wallet.account
+                                    ? {
+                                        color: 'white',
+                                        width: '100%',
+                                    }
+                                    : {
+                                        backgroundColor: 'transparent',
+                                        width: '100%',
+                                    }
+                            }
+                            children={
+                                <button className="border border-[#FF5800] p-2 rounded-lg w-full md:w-auto">
+                                    Connect wallet
+                                </button>
+                            }
+                            onConnectSuccess={() => {
+                                setActiveStep(3);
+                            }}
+                        />
+                    </div>
+                ) : (
+                    <Launcher />
+                )}
             </div>
 
         </div>
