@@ -8,7 +8,7 @@ const rpcUrl = getFullnodeUrl('devnet');
 export const client = new SuiClient({ url: rpcUrl });
 import axios from 'axios';
 
-const WalletConnect = () => {
+const WalletConnect = ({ setTriggerEffect }: { setTriggerEffect: React.Dispatch<React.SetStateAction<boolean>>; }) => {
     const wallet = useWallet();
     const { setActiveStep } = useGlobalStorage();
     useQuery({
@@ -58,7 +58,9 @@ const WalletConnect = () => {
                             width: '100%',
                         }
                 }
+                onConnectSuccess={() => { setTriggerEffect(true) }}
                 children={
+
                     <button className="border border-[#FF5800] p-2 rounded-lg w-full md:w-auto">
                         Connect wallet
                     </button>
