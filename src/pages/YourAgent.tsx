@@ -95,7 +95,8 @@ const YourAgent = () => {
                 const eventDetails = extractEventDetails(value);
                 const res = await scheduleEvent({
                     eventDetails,
-                    attendeesEmail: localStorage.getItem('mail') || "gymfreak@gmail.com",
+                    attendeesEmail:
+                        localStorage.getItem('mail') || 'gymfreak@gmail.com',
                 });
                 const messageContent =
                     'Meeting scheduled successfully!, here is your calendar link';
@@ -251,7 +252,7 @@ const YourAgent = () => {
                         ...prev,
                         {
                             id: String(prev.length + 1),
-                            content: `Scheduling a call with ${doc} for tomorrow, paying 0.004 ETH for the appointment.`,
+                            content: `Scheduling a call with ${doc} for tomorrow, paying 0.004 SUI for the appointment.`,
                             type: 'assistant',
                         },
                     ]);
@@ -259,13 +260,13 @@ const YourAgent = () => {
                     nextDay.setDate(nextDay.getDate() + 1);
                     const formattedDate = nextDay.toISOString().split('T')[0];
                     const eventDetails = {
-                        summary: `Appointment with Dr. ${doc}`,
+                        summary: `Appointment with ${doc}`,
                         startDateTime: `${formattedDate}T00:00:00`,
                         duration: 60,
                     };
                     const res = await scheduleEvent({
                         eventDetails,
-                        attendeesEmail: doc || "gymfreak@gmail.com",
+                        attendeesEmail: doc || 'gymfreak@gmail.com',
                     });
                     setMessages((prev) => [
                         ...prev,
@@ -300,6 +301,36 @@ const YourAgent = () => {
                     ]);
                     setIsLoading(false);
                 }
+            } else {
+                const res = await fetch(
+                    'https://sui-eliza-production.up.railway.app/api/knowledge-base/query',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name: localStorage.getItem('dynamicId'),
+                            question: value,
+                        }),
+                    }
+                );
+
+                if (!res.ok) {
+                    throw new Error('Failed to fetch chat data');
+                }
+
+                const data = await res.json();
+
+                setMessages((prev) => [
+                    ...prev,
+                    {
+                        id: String(prev.length + 1),
+                        content: data,
+                        type: 'assistant',
+                    },
+                ]);
+                setIsLoading(false);
             }
         } catch (err) {
             setIsLoading(false);
