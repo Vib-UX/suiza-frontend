@@ -38,7 +38,7 @@ const chatMessageVariants = cva('flex gap-4 w-full', {
 
 interface MessageContextValue extends VariantProps<typeof chatMessageVariants> {
     id: string;
-    type?: 'incoming' | 'outgoing';
+    type?: 'incoming' | 'outgoing' | undefined | null;
 }
 
 const ChatMessageContext = React.createContext<MessageContextValue | null>(

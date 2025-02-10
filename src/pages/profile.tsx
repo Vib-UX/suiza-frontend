@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { featureCardImage1, featureCardImage2, featureCardImage3, homePageCoverImage, homePageImage1, homePageImage2, homePageImage3, logo, } from "../../public/index";
 import { Link } from "react-router-dom";
 import Navbar from '../components/navbar';

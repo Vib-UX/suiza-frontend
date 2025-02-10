@@ -1,4 +1,3 @@
-import React from 'react'
 import { logo } from '../../../public'
 import { Link } from 'react-router-dom'
 
