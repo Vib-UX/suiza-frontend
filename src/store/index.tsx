@@ -26,7 +26,7 @@ type Store = {
 };
 
 const initialState = {
-    activeStep: 1,
+    activeStep: 0,
     userInfo: {
         name: '',
         twitterUsername: localStorage.getItem('twitter_username') || '',
