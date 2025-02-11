@@ -130,7 +130,7 @@ const ConnectSocials = () => {
                     )}
                 </div>
             </div>
-            <WalletConnect />
+            <WalletConnect setTriggerEffect={setTriggerEffect} />
         </>
     );
 };
