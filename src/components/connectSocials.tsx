@@ -55,8 +55,7 @@ const ConnectSocials = () => {
     React.useEffect(() => {
         if (
             localStorage.getItem('googleAuth') &&
-            localStorage.getItem('twitter_username') &&
-            wallet.address
+            localStorage.getItem('twitter_username')
         ) {
             setActiveStep(1);
         }
