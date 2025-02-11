@@ -1,4 +1,3 @@
-
 import useGlobalStorage from '../store';
 import { useRef, useState } from 'react';
 import { Confetti, ConfettiRef } from './ui/confeti';
@@ -17,7 +16,7 @@ const Launcher = () => {
         setLoader(true);
         try {
             const res = await fetch(
-                'https://6836-2405-201-4024-580a-25d3-fec3-556f-ce2f.ngrok-free.app/create-character',
+                'https://fd6a-2405-201-4024-580a-8895-4296-1604-7893.ngrok-free.app/create-character',
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -38,9 +37,8 @@ const Launcher = () => {
                 const data = await res.json();
                 console.log(data);
                 localStorage.setItem('dynamicId', data.name);
-                navigate('/YourAgent')
+                navigate('/YourAgent');
                 setLoader(false);
-
             }
         } catch (err) {
             setLoader(false);
