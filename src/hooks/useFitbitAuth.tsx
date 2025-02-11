@@ -74,7 +74,7 @@ export function useFitbitAuth() {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
                     body: new URLSearchParams({
-                        client_id: '23Q778',
+                        client_id: '23Q7RW',
                         grant_type: 'authorization_code',
                         code: code,
                         code_verifier: codeVerifier || '',

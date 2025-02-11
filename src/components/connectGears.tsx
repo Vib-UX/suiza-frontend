@@ -62,7 +62,6 @@ const ConnectGears = () => {
             setActiveStep(2);
         }
     };
-
     useEffect(() => {
         if (data) {
             setUserInfo({
@@ -82,7 +81,7 @@ const ConnectGears = () => {
         const verifier = generateCodeVerifier();
         const challenge = await generateCodeChallenge(verifier);
         sessionStorage.setItem('code_verifier', verifier);
-        window.location.href = `https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23Q778&scope=activity+cardio_fitness+electrocardiogram+heartrate+irregular_rhythm_notifications+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=${challenge}&code_challenge_method=S256`;
+        window.location.href = `https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23Q7RW&scope=activity+cardio_fitness+electrocardiogram+heartrate+irregular_rhythm_notifications+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=${challenge}&code_challenge_method=S256`;
     };
     const requestBluetoothPermission = async () => {
         try {

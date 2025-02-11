@@ -55,11 +55,12 @@ const ConnectSocials = () => {
     React.useEffect(() => {
         if (
             localStorage.getItem('googleAuth') &&
-            localStorage.getItem('twitter_username')
+            localStorage.getItem('twitter_username') &&
+            wallet.address
         ) {
             setActiveStep(1);
         }
-    }, [triggerEffect]);
+    }, [triggerEffect, wallet.address]);
     return (
         <>
             <div className="border overflow-hidden border-[#79DFED] rounded-xl h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
