@@ -1,6 +1,6 @@
 import { useGoogleLogin } from '@react-oauth/google';
 
-import { GoogleIcon, Xicon } from "../../public/index"
+import { GoogleIcon, Xicon } from '../../public/index';
 
 import useGlobalStorage from '../store';
 import React from 'react';
@@ -64,8 +64,10 @@ const ConnectSocials = () => {
     return (
         <>
             <div className="border overflow-hidden border-[#79DFED] rounded-xl h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
-                <div className="relative  flex justify-center items-center rounded-2xl shadow-xl
-                  bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525]">
+                <div
+                    className="relative  flex justify-center items-center rounded-2xl shadow-xl
+                  bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525]"
+                >
                     <img
                         src={GoogleIcon}
                         alt="google"
@@ -94,10 +96,12 @@ const ConnectSocials = () => {
                             : 'Connect Now'}
                     </button>
                 </div>
-            </div >
+            </div>
             <div className="border  overflow-hidden  border-[#79DFED] rounded-xl h-full w-full md:size-[400px] mx-4 text-center md:text-left">
-                <div className="relative  flex justify-center items-center rounded-2xl shadow-xl
-                  bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525]">
+                <div
+                    className="relative  flex justify-center items-center rounded-2xl shadow-xl
+                  bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525]"
+                >
                     <img
                         src={Xicon}
                         alt="twitter"
@@ -131,6 +135,12 @@ const ConnectSocials = () => {
                 </div>
             </div>
             <WalletConnect setTriggerEffect={setTriggerEffect} />
+            <div
+                onClick={() => setActiveStep(1)}
+                className="mt-auto cursor-pointer"
+            >
+                Skip
+            </div>
         </>
     );
 };
