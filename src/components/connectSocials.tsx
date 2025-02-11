@@ -137,9 +137,9 @@ const ConnectSocials = () => {
             <WalletConnect setTriggerEffect={setTriggerEffect} />
             <div
                 onClick={() => setActiveStep(1)}
-                className="mt-auto cursor-pointer"
+                className="mt-auto cursor-pointer underline"
             >
-                Skip
+                Next
             </div>
         </>
     );

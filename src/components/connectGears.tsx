@@ -146,6 +146,12 @@ const ConnectGears = () => {
                     className="mx-auto mt-10"
                 />
             </div>
+            <div
+                onClick={() => setActiveStep(2)}
+                className="mt-auto cursor-pointer underline"
+            >
+                Next
+            </div>
         </>
     );
 };
