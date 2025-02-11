@@ -4,7 +4,7 @@
 // import { useEffect, } from 'react';
 
 // import { fetchUserData, useFitbitAuth } from '../hooks/useFitbitAuth';
-import { generateCodeChallenge, generateCodeVerifier, generateCommitment } from '../lib/helper';
+import { generateCodeChallenge, generateCodeVerifier, } from '../lib/helper';
 // import useGlobalStorage from '../store';
 import toast from 'react-hot-toast';
 import { Transaction } from '@mysten/sui/transactions'
@@ -57,27 +57,9 @@ const ConnectGears = () => {
             toast.error("Error signing transaction", toastStyles)
         }
     };
-    const onChainPush = async ({
-        height,
-        weight,
-        age,
-    }: {
-        height: number;
-        weight: number;
-        age: number;
-    }) => {
-        const resp = await generateCommitment({
-            blood_pressure: 120,
-            heart_rate: 75,
-            temperature: 37,
-            oxygen: 98,
-            respiratory_rate: 16,
-            height: height,
-            weight: weight,
-            age: age,
-        });
-        console.log(resp);
-        const res = await sendCall(resp);
+    const onChainPush = async () => {
+
+        const res = await sendCall("");
         if (res) {
             toast.success("Data stored on chain successfully", toastStyles)
             setActiveStep(2)
@@ -95,11 +77,7 @@ const ConnectGears = () => {
                 height: data.height,
                 gender: data.gender,
             });
-            onChainPush({
-                height: data.height,
-                weight: data.weight,
-                age: data.age,
-            });
+            onChainPush();
         }
     }, [data]);
     const handleGetFitRedirection = async () => {
