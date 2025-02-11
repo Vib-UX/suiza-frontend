@@ -4,10 +4,10 @@
 // import { useEffect, } from 'react';
 
 // import { fetchUserData, useFitbitAuth } from '../hooks/useFitbitAuth';
-import { generateCodeChallenge, generateCodeVerifier, } from '../lib/helper';
+import { generateCodeChallenge, generateCodeVerifier } from '../lib/helper';
 // import useGlobalStorage from '../store';
 import toast from 'react-hot-toast';
-import { Transaction } from '@mysten/sui/transactions'
+import { Transaction } from '@mysten/sui/transactions';
 import { toastStyles } from '../config';
 import { useEffect, useState } from 'react';
 import { Vr, Watch } from '../../public';
@@ -29,9 +29,7 @@ const ConnectGears = () => {
         enabled: !!sessionCode,
     });
 
-
     const sendCall = async (resp: string) => {
-
         try {
             const contractModule = 'health';
             const contractMethod = 'create_health_profile';
@@ -54,15 +52,14 @@ const ConnectGears = () => {
 
             return res;
         } catch (err) {
-            toast.error("Error signing transaction", toastStyles)
+            toast.error('Error signing transaction', toastStyles);
         }
     };
     const onChainPush = async () => {
-
-        const res = await sendCall("");
+        const res = await sendCall('');
         if (res) {
-            toast.success("Data stored on chain successfully", toastStyles)
-            setActiveStep(2)
+            toast.success('Data stored on chain successfully', toastStyles);
+            setActiveStep(2);
         }
     };
 
@@ -78,6 +75,7 @@ const ConnectGears = () => {
                 gender: data.gender,
             });
             onChainPush();
+            setActiveStep(2);
         }
     }, [data]);
     const handleGetFitRedirection = async () => {
@@ -126,7 +124,6 @@ const ConnectGears = () => {
                     width={150}
                     className="mx-auto mt-10 md:mt-16"
                 />
-
             </div>
             {/* Smartwatch */}
             <div className="border border-[#79DFED] p-6 rounded-xl    bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525] h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
@@ -150,7 +147,6 @@ const ConnectGears = () => {
                     className="mx-auto mt-10"
                 />
             </div>
-
         </>
     );
 };
