@@ -48,9 +48,8 @@ const ConnectSocials = () => {
             toast.dismiss();
             toast.success('Twitter connected successfully', toastStyles);
             setTriggerEffect(true);
+            navigate(window.location.pathname, { replace: true });
         }
-
-        navigate(window.location.pathname, { replace: true });
     }, [searchParams]);
     React.useEffect(() => {
         if (
