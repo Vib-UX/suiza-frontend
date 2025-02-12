@@ -16,7 +16,7 @@ const Launcher = () => {
         setLoader(true);
         try {
             const res = await fetch(
-                'https://fd6a-2405-201-4024-580a-8895-4296-1604-7893.ngrok-free.app/create-character',
+                'https://2327-49-36-139-19.ngrok-free.app/create-character',
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
