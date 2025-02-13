@@ -339,7 +339,7 @@ const YourAgent = () => {
     };
     React.useEffect(() => {
         const messageContent = [
-            'Welcome to Suiza, your personal assistant.',
+            'Welcome to Suiza, your fitness assistant.',
             'What can I help with?',
         ];
         voiceSupport(messageContent.join(' '));
