@@ -13,13 +13,6 @@ import {
     ChatInputTextArea,
 } from '../components/ui/chat/input';
 import PulsatingDots from '../components/ui/loaders';
-// import {
-//     extractEventDetails,
-//     googleContacts,
-//     scheduleEvent,
-//     trxCaller,
-//     voiceSupport,
-// } from '../lib/helper';
 import {
     extractEventDetails,
     googleContacts,
@@ -199,6 +192,10 @@ const YourAgent = () => {
             } else if (
                 value.toLowerCase().includes('yes go ahead'.toLowerCase())
             ) {
+                const trxData = await trxCaller(
+                    2.0683,
+                    '0x577804d5a7802bac60d87bbae8be3a4f6b3e7698d1f0feeec23b8e28d4b827a'
+                );
                 setTimeout(() => {
                     const messageContent = [
                         'Payment confirmed',
@@ -232,9 +229,7 @@ const YourAgent = () => {
                                         target="_blank"
                                         rel="noreferrer"
                                         className="underline"
-                                        href={
-                                            'https://suiscan.xyz/devnet/tx/Cqab8BDjab9f8CGw1CfU37Re5Qxz7W72QyKAEaz7DADL'
-                                        }
+                                        href={`https://suiscan.xyz/devnet/tx/${trxData}`}
                                     >
                                         Payment link 💰
                                     </a>
