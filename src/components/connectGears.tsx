@@ -12,7 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Vr, Watch } from '../../public';
-import { toastStyles } from '../config';
+import { SUI_CONTRACT, toastStyles } from '../config';
 import { fetchUserData, useFitbitAuth } from '../hooks/useFitbitAuth';
 import useGlobalStorage from '../store';
 import { client } from './walletConnect';
@@ -39,7 +39,7 @@ const ConnectGears = () => {
             const tx = new Transaction();
             tx.setGasBudget(100000000);
             tx.moveCall({
-                target: `1b74ebc0ca6ded62a85743b33056c3e6e3706534dee705976e8441caa85b017b::${contractModule}::${contractMethod}`,
+                target: `${SUI_CONTRACT}::${contractModule}::${contractMethod}`,
                 arguments: [tx.pure.string(resp), tx.pure.u8(5)],
             });
             const result = await wallet.signAndExecuteTransaction({

@@ -29,7 +29,7 @@ type Store = {
 };
 
 const initialState = {
-    activeStep: 0,
+    activeStep: 2,
     userInfo: {
         name: '',
         twitterUsername: localStorage.getItem('twitter_username') || '',

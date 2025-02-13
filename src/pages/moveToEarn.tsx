@@ -69,7 +69,7 @@ const MoveToEarn = () => {
         toast.loading('Please wait...', toastStyles);
         try {
             const contractModule = 'Streak_profile';
-            const contractMethod = 'join_challenge';
+            const contractMethod = 'record_workout';
             const tx = new Transaction();
             tx.setGasBudget(100000000);
             tx.moveCall({
