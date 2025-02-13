@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import toast from 'react-hot-toast';
 import { toastStyles } from '../config';
-
+import { Transaction } from '@mysten/sui/transactions';
+import { Signer } from '@mysten/sui/cryptography';
+import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
+import { Secp256k1Keypair } from '@mysten/sui/keypairs/secp256k1';
+import { Secp256r1Keypair } from '@mysten/sui/keypairs/secp256r1';
+import { client } from '../components/walletConnect';
+import { SUI_DECIMALS } from '@mysten/sui/utils';
 export const generateCodeVerifier = (): string => {
     const array = new Uint8Array(64);
     crypto.getRandomValues(array);
@@ -48,7 +54,7 @@ export const scheduleEvent = async ({
         end: {
             dateTime: new Date(
                 new Date(eventDetails.startDateTime).getTime() +
-                duration * 60000
+                    duration * 60000
             ).toISOString(),
             timeZone: 'UTC',
         },
@@ -141,29 +147,6 @@ export const extractEventDetails = (userInput: string) => {
 
     return { summary, startDateTime: dateTime.toISOString(), duration };
 };
-export const trxCaller = async (
-    amount: number,
-    address: string,
-    id: string[]
-) => {
-    const res = await fetch(
-        'https://orion-server-wallet-production.up.railway.app/api/send-transaction',
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                wallet_id: id,
-                to: address,
-                value: amount,
-                chain_name: 'base',
-            }),
-        }
-    );
-    const data = await res.json();
-    return { data: data.data.hash };
-};
 export const googleContacts = async () => {
     const token = localStorage.getItem('googleAuth');
     try {
@@ -218,4 +201,56 @@ export const voiceSupport = (messageContent: string) => {
         speak(); // If voices are already available, speak immediately
     }
 };
+export const trxCaller = async (amount: number, address: string) => {
+    try {
+        const suiAccount = parseAccount();
+        const tx = new Transaction();
+        tx.setGasBudget(100000000);
+        const adjAmount = BigInt(amount * Math.pow(10, SUI_DECIMALS));
+        const [coin] = tx.splitCoins(tx.gas, [adjAmount]);
+        tx.transferObjects([coin], address);
+        const executedTransaction = await client.signAndExecuteTransaction({
+            signer: suiAccount,
+            transaction: tx,
+        });
+        return executedTransaction.digest;
+    } catch (err) {
+        console.log(err);
+    }
+};
+const parseAccount = (): Signer => {
+    const privateKey =
+        'suiprivkey1qzv4x03q9hsvn2ws6mphljnwtzdarefymj2d7xalmawjyz7hn0ajgs7tes6';
 
+    if (privateKey.startsWith('suiprivkey')) {
+        return loadFromSecretKey(privateKey);
+    }
+    return loadFromMnemonics(privateKey);
+};
+const loadFromSecretKey = (privateKey: string) => {
+    const keypairClasses = [Ed25519Keypair, Secp256k1Keypair, Secp256r1Keypair];
+    for (const KeypairClass of keypairClasses) {
+        try {
+            return KeypairClass.fromSecretKey(privateKey);
+        } catch {
+            // Removed unnecessary continue
+        }
+    }
+    throw new Error('Failed to initialize keypair from secret key');
+};
+
+const loadFromMnemonics = (mnemonics: string) => {
+    const keypairMethods = [
+        { Class: Ed25519Keypair, method: 'deriveKeypairFromSeed' },
+        { Class: Secp256k1Keypair, method: 'deriveKeypair' },
+        { Class: Secp256r1Keypair, method: 'deriveKeypair' },
+    ];
+    for (const { Class, method } of keypairMethods) {
+        try {
+            return (Class as any)[method](mnemonics);
+        } catch {
+            // Removed unnecessary continue
+        }
+    }
+    throw new Error('Failed to derive keypair from mnemonics');
+};

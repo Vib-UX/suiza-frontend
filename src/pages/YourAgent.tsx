@@ -24,6 +24,7 @@ import {
     extractEventDetails,
     googleContacts,
     scheduleEvent,
+    trxCaller,
     voiceSupport,
 } from '../lib/helper';
 import useGlobalStorage from '../store';
@@ -314,6 +315,32 @@ const YourAgent = () => {
                     ]);
                     setIsLoading(false);
                 }
+            } else if (value.toLowerCase().includes('send')) {
+                const words = value.split(' ');
+                const amount = Number(words[1]);
+                const address = words[words.indexOf('to') + 1];
+                const trxData = await trxCaller(amount, address);
+                setMessages((prev) => [
+                    ...prev,
+                    {
+                        id: String(prev.length + 1),
+                        content: (
+                            <>
+                                Transaction sent successfully!{' '}
+                                <a
+                                    href={`https://suiscan.xyz/devnet/tx/${trxData}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="underline"
+                                >
+                                    Link
+                                </a>
+                            </>
+                        ),
+                        type: 'assistant',
+                    },
+                ]);
+                setIsLoading(false);
             } else {
                 const res = await fetch(
                     'https://sui-eliza-production.up.railway.app/api/knowledge-base/query',
