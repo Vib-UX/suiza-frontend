@@ -6,11 +6,16 @@ import Navbar from '../components/navbar';
 import VerticalLinearStepper from '../components/ui/stepper';
 import useGlobalStorage from '../store';
 import Launcher from '../components/launcher';
+import { useState } from 'react';
 
 const LaunchAgent = () => {
     const { activeStep, setActiveStep, userInfo, setUserInfo } =
         useGlobalStorage();
-
+    const [twitterConfig, setTwitterConfig] = useState({
+        email: '',
+        username: '',
+        password: '',
+    });
     return (
         <div
             className="relative bg-[#0a0f1b]       text-white
@@ -71,6 +76,50 @@ font-chakra min-h-screen flex flex-col items-center px-4 md:px-8"
                                         setUserInfo({
                                             ...userInfo,
                                             agentWalletKey: e.target.value,
+                                        });
+                                    }}
+                                    className="border focus:outline-none rounded-md py-1 px-2 my-5 w-full"
+                                />
+                            </div>
+                            <div className="text-xl font-semibol py-1">
+                                Twitter config info
+                            </div>{' '}
+                            <div className="flex items-center gap-x-4">
+                                <div>Twitter email </div>
+                                <input
+                                    type="email"
+                                    value={twitterConfig.email}
+                                    onChange={(e) => {
+                                        setTwitterConfig({
+                                            ...twitterConfig,
+                                            email: e.target.value,
+                                        });
+                                    }}
+                                    className="border focus:outline-none rounded-md py-1 px-2 my-5 w-full"
+                                />
+                            </div>
+                            <div className="flex items-center gap-x-4">
+                                <div>Twitter username</div>
+                                <input
+                                    value={twitterConfig.username}
+                                    onChange={(e) => {
+                                        setTwitterConfig({
+                                            ...twitterConfig,
+                                            username: e.target.value,
+                                        });
+                                    }}
+                                    className="border focus:outline-none rounded-md py-1 px-2 my-5 w-full"
+                                />
+                            </div>
+                            <div className="flex items-center gap-x-4">
+                                <div>Twitter password </div>
+                                <input
+                                    type="password"
+                                    value={twitterConfig.password}
+                                    onChange={(e) => {
+                                        setTwitterConfig({
+                                            ...twitterConfig,
+                                            password: e.target.value,
                                         });
                                     }}
                                     className="border focus:outline-none rounded-md py-1 px-2 my-5 w-full"
