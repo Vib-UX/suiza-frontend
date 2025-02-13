@@ -35,6 +35,7 @@ const WalletConnect = () => {
                 digest: result.digest,
                 options: { showEffects: true },
             });
+            localStorage.setItem('profile', 'true');
             const createdObjects = res.effects?.created || [];
             if (createdObjects.length > 0) {
                 const userProfileId = createdObjects[0].reference.objectId;
@@ -66,6 +67,15 @@ const WalletConnect = () => {
                         },
                     });
                     toast.success('Sui token sent successfully!', toastStyles);
+                    const res = await handleLaunchAgent();
+                    setUserInfo({
+                        ...userInfo,
+                        objectId: res,
+                    });
+                } else if (
+                    !localStorage.getItem('profile') &&
+                    wallet.account.address
+                ) {
                     const res = await handleLaunchAgent();
                     setUserInfo({
                         ...userInfo,
