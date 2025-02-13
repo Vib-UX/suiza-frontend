@@ -58,7 +58,6 @@ const ConnectGears = () => {
         if (res) {
             setTrxModal(true);
             setRecordLink(res);
-            setActiveStep(2);
         }
     };
     useEffect(() => {
