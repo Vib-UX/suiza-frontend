@@ -193,8 +193,8 @@ const YourAgent = () => {
                 value.toLowerCase().includes('yes go ahead'.toLowerCase())
             ) {
                 const trxData = await trxCaller(
-                    2.0683,
-                    '0x577804d5a7802bac60d87bbae8be3a4f6b3e7698d1f0feeec23b8e28d4b827a'
+                    0.00020683,
+                    '0x419b4cc8afa3d0a15889b31f8adcd5f30d2105fa63d794f699674288771ec676'
                 );
                 setTimeout(() => {
                     const messageContent = [
