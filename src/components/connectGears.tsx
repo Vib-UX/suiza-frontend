@@ -49,9 +49,7 @@ const ConnectGears = () => {
                 digest: result.digest,
             });
             return res.digest;
-        } catch (err) {
-            toast.error('Error signing transaction', toastStyles);
-        }
+        } catch {}
     };
     const onChainPush = async () => {
         const res = await sendCall(
@@ -60,6 +58,7 @@ const ConnectGears = () => {
         if (res) {
             setTrxModal(true);
             setRecordLink(res);
+            setActiveStep(2);
         }
     };
     useEffect(() => {
