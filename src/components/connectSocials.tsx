@@ -2,13 +2,12 @@ import { useGoogleLogin } from '@react-oauth/google';
 
 import { GoogleIcon, Xicon } from '../../public/index';
 
-import useGlobalStorage from '../store';
-import React from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import toast from 'react-hot-toast';
-import { toastStyles } from '../config';
-import WalletConnect from './walletConnect';
 import { useWallet } from '@suiet/wallet-kit';
+import React from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { toastStyles } from '../config';
+import useGlobalStorage from '../store';
 const ConnectSocials = () => {
     const wallet = useWallet();
     const { setActiveStep, userInfo, setUserInfo } = useGlobalStorage();
@@ -133,12 +132,26 @@ const ConnectSocials = () => {
                     )}
                 </div>
             </div>
-            <WalletConnect setTriggerEffect={setTriggerEffect} />
+
             <div
                 onClick={() => setActiveStep(1)}
-                className="mt-auto cursor-pointer underline"
+                className="mt-auto cursor-pointer underline flex items-center gap-x-2"
             >
-                Next
+                Next{' '}
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="size-6"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                </svg>
             </div>
         </>
     );

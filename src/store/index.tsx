@@ -14,6 +14,9 @@ type Store = {
         height: string;
         gender: string;
         location: string;
+        browserUseUrl: string;
+        agentWalletKey: string;
+        objectId: string;
         health: {
             currentFitnessLevel: string;
             goals: string[];
@@ -37,6 +40,9 @@ const initialState = {
         height: '',
         gender: '',
         location: 'Delhi India',
+        browserUseUrl: '',
+        agentWalletKey: '',
+        objectId: '',
         health: {
             currentFitnessLevel: 'Intermediate',
             goals: ['Increase endurance', 'Improve flexibility'],

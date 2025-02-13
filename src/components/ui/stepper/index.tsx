@@ -13,7 +13,9 @@ const steps = [
     {
         label: 'Connect Gear',
     },
-
+    {
+        label: 'Additional Info',
+    },
     {
         label: 'Launch',
     },

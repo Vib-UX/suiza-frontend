@@ -1,6 +1,6 @@
 export const SUI_DEVNET_FAUCET = 'https://faucet.devnet.sui.io/gas';
 export const SUI_CONTRACT =
-    '0x0a8ef0ee87444f06658e17cb86d93713f02aeca578b893a6d3d90a353ca83d3c';
+    '0x1b74ebc0ca6ded62a85743b33056c3e6e3706534dee705976e8441caa85b017b';
 export const toastStyles = {
     style: {
         boxShadow: '0px 4px 4px 0px #00000040',

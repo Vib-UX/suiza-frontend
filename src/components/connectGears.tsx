@@ -6,22 +6,25 @@
 // import { fetchUserData, useFitbitAuth } from '../hooks/useFitbitAuth';
 import { generateCodeChallenge, generateCodeVerifier } from '../lib/helper';
 // import useGlobalStorage from '../store';
-import toast from 'react-hot-toast';
 import { Transaction } from '@mysten/sui/transactions';
-import { toastStyles } from '../config';
+import { useWallet } from '@suiet/wallet-kit';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Vr, Watch } from '../../public';
+import { toastStyles } from '../config';
 import { fetchUserData, useFitbitAuth } from '../hooks/useFitbitAuth';
 import useGlobalStorage from '../store';
-import { useQuery } from '@tanstack/react-query';
-import { useWallet } from '@suiet/wallet-kit';
 import { client } from './walletConnect';
+import MyModal from './ui/modal';
 
 const ConnectGears = () => {
     const wallet = useWallet();
     useFitbitAuth();
     const sessionCode = sessionStorage.getItem('fitbit_token');
+    const [recordLink, setRecordLink] = useState('');
     const [bluetoothPaired, setBluetoothPaired] = useState(false);
+    const [trxModal, setTrxModal] = useState(false);
     const { userInfo, setUserInfo, setActiveStep } = useGlobalStorage();
     const { data } = useQuery({
         queryKey: ['user-data'],
@@ -36,12 +39,8 @@ const ConnectGears = () => {
             const tx = new Transaction();
             tx.setGasBudget(100000000);
             tx.moveCall({
-                target: `0x3b9ba93b293870b831443b6435712f28a2bccf75cb37a6e316b69f5e48dce531::${contractModule}::${contractMethod}`,
-                arguments: [
-                    tx.pure.string(resp),
-                    tx.pure.u8(8),
-                    tx.object('0x6'),
-                ],
+                target: `1b74ebc0ca6ded62a85743b33056c3e6e3706534dee705976e8441caa85b017b::${contractModule}::${contractMethod}`,
+                arguments: [tx.pure.string(resp), tx.pure.u8(5)],
             });
             const result = await wallet.signAndExecuteTransaction({
                 transaction: tx,
@@ -49,17 +48,18 @@ const ConnectGears = () => {
             const res = await client.waitForTransaction({
                 digest: result.digest,
             });
-
-            return res;
+            return res.digest;
         } catch (err) {
             toast.error('Error signing transaction', toastStyles);
         }
     };
     const onChainPush = async () => {
-        const res = await sendCall('');
+        const res = await sendCall(
+            '21203566200152448597169171475121561620893492467321985039912602014681180776226'
+        );
         if (res) {
-            toast.success('Data stored on chain successfully', toastStyles);
-            setActiveStep(2);
+            setTrxModal(true);
+            setRecordLink(res);
         }
     };
     useEffect(() => {
@@ -74,7 +74,6 @@ const ConnectGears = () => {
                 gender: data.gender,
             });
             onChainPush();
-            setActiveStep(2);
         }
     }, [data]);
     const handleGetFitRedirection = async () => {
@@ -100,6 +99,14 @@ const ConnectGears = () => {
 
     return (
         <>
+            {trxModal && (
+                <MyModal
+                    isOpen={trxModal}
+                    recordLink={recordLink}
+                    setIsOpen={setTrxModal}
+                    setActiveStep={setActiveStep}
+                />
+            )}
             <div className="border border-[#79DFED] p-6 rounded-xl    bg-gradient-to-br from-[#4DA2FF]/30 via-[#0a0f1b] to-[#0e1525] h-full w-full md:size-[400px] mx-4 md:ml-20 text-center md:text-left">
                 <div className="bg-[radial-gradient(circle,_#FFFFFF_0%,_#FF5800_100%)] bg-clip-text text-transparent uppercase text-lg md:text-xl">
                     ar gear
@@ -146,11 +153,26 @@ const ConnectGears = () => {
                     className="mx-auto mt-10"
                 />
             </div>
+
             <div
                 onClick={() => setActiveStep(2)}
-                className="mt-auto cursor-pointer underline"
+                className="mt-auto cursor-pointer underline flex items-center gap-x-2"
             >
-                Next
+                Next{' '}
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="size-6"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                </svg>
             </div>
         </>
     );

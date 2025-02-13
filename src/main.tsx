@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         element: <LaunchAgent />,
     },
     {
-        path: '/YourAgent',
+        path: '/your-agent',
         element: <YourAgent />,
     },
     {

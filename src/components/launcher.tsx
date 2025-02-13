@@ -37,7 +37,7 @@ const Launcher = () => {
                 const data = await res.json();
                 console.log(data);
                 localStorage.setItem('dynamicId', data.name);
-                navigate('/YourAgent');
+                navigate('/your-agent');
                 setLoader(false);
             }
         } catch (err) {
