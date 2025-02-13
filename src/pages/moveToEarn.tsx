@@ -75,7 +75,7 @@ const MoveToEarn = () => {
             tx.moveCall({
                 target: `${SUI_CONTRACT}::${contractModule}::${contractMethod}`,
                 arguments: [
-                    tx.pure.string(userInfo.objectId),
+                    tx.object(userInfo.objectId),
                     tx.object(
                         '0x0000000000000000000000000000000000000000000000000000000000000006'
                     ),
@@ -109,6 +109,7 @@ const MoveToEarn = () => {
             console.log(err);
         }
     };
+    console.log(userInfo.objectId);
     return (
         <>
             {openModal && (
