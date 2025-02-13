@@ -40,7 +40,13 @@ const ConnectGears = () => {
             tx.setGasBudget(100000000);
             tx.moveCall({
                 target: `${SUI_CONTRACT}::${contractModule}::${contractMethod}`,
-                arguments: [tx.pure.string(resp), tx.pure.u8(5)],
+                arguments: [
+                    tx.pure.string(resp),
+                    tx.pure.u8(5),
+                    tx.object(
+                        '0x0000000000000000000000000000000000000000000000000000000000000006'
+                    ),
+                ],
             });
             const result = await wallet.signAndExecuteTransaction({
                 transaction: tx,
