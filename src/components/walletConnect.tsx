@@ -44,7 +44,6 @@ const WalletConnect = () => {
                 return null;
             }
         } catch (err) {
-            toast.error('Something went wrong', toastStyles);
             console.log(err);
         }
     };
